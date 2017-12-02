@@ -5,6 +5,7 @@ import org.jpmml.evaluator.ModelEvaluatorFactory
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.core.io.ClassPathResource
 import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.spi.DocumentationType
@@ -28,7 +29,7 @@ class Application {
 
     @Bean
     ModelEvaluator genderGuessEvaluator() {
-        def fis = this.getClass().getClassLoader().getResourceAsStream('./GenderGuess.pmml')
+        def fis = new ClassPathResource('./GenderGuess.pmml').inputStream
         def pmml = unmarshal(fis)
         fis.close()
         def modelEvaluatorFactory = ModelEvaluatorFactory.newInstance()
@@ -37,7 +38,7 @@ class Application {
 
     @Bean
     Map<String, Character> namesDb() {
-        def f = this.getClass().getClassLoader().getResourceAsStream('./names.csv').text
+        def f = new ClassPathResource('./names.csv').inputStream.text
                 .split('\n')*.split(';')
         f.collectEntries { [Utils.normName(it[0]), it[1][0]] }
     }
