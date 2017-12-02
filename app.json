@@ -1,0 +1,11 @@
+{
+  "name": "Gender Guess on Heroku",
+  "description": "Gender guess by brazilian names",
+  "repository": "https://github.com/pintowar/gguess",
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/gradle"
+    }
+  ]
+}
