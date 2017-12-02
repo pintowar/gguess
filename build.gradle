@@ -12,6 +12,7 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 jar {
@@ -20,6 +21,11 @@ jar {
 
 springBoot {
 	executable = true
+}
+
+gitProperties {
+	dateFormat = "yyyy-MM-dd'T'HH:mmZ"
+	dateFormatTimeZone = "GMT"
 }
 
 docker {
