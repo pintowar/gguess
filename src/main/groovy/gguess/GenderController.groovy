@@ -8,7 +8,9 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RestController('/guess')
+import javax.servlet.http.HttpServletRequest
+
+@RestController
 class GenderController {
 
     ModelEvaluator evaluator
@@ -20,6 +22,15 @@ class GenderController {
     GenderController(ModelEvaluator evaluator, @Qualifier('namesDb') Map namesDb) {
         this.evaluator = evaluator
         this.namesDb = namesDb
+    }
+
+    @GetMapping('/')
+    ResponseEntity<Map<String, String>> main(HttpServletRequest req) {
+        def base = req.getRequestURL().toString()
+        ResponseEntity.ok([documentation: base + 'swagger-ui.html',
+                           health       : base + 'health',
+                           info         : base + 'info',
+                           message      : 'Gender Guess Service'])
     }
 
     @ApiOperation(value = "Show gender classification by name", notes = "Show gender classification by name")
